@@ -10,7 +10,6 @@ import {
   Image,
 } from '@react-pdf/renderer';
 
-// IMPORT YOUR LOGO
 import logo from './assets/logo.png';
 
 const BORDER_COLOR = '#c4c4c4';
@@ -236,19 +235,16 @@ const ServiceReportPDF = () => (
         {/* ───────────────── HEADER ───────────────── */}
         <View style={styles.headerBox}>
 
-          {/* LOGO */}
           <View style={styles.headerLogo}>
             <Image src={logo} style={styles.headerLogoImage} />
           </View>
 
-          {/* TITLE */}
           <View style={styles.headerTitle}>
             <Text style={styles.headerTitleText}>
               FEEDBACK FORM
             </Text>
           </View>
 
-          {/* META */}
           <View style={styles.headerMeta}>
             <MetaRow label="Doc. No.:" value="UGES-SE-F-04" />
             <MetaRow label="Rev. No.:" value="02" />
@@ -379,7 +375,6 @@ const ServiceReportPDF = () => (
               </View>
             ))}
 
-            {/* OTHER */}
             <View style={styles.row}>
               <Td
                 bg
@@ -448,7 +443,6 @@ const ServiceReportPDF = () => (
 
           <View style={styles.table}>
 
-            {/* HEADER */}
             <View style={[styles.row, { backgroundColor: BLUE_BG }]}>
 
               <Td bold borderRight style={{ flex: 15 }}>
