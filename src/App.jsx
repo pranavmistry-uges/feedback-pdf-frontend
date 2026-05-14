@@ -6,17 +6,19 @@ import {
   Text,
   StyleSheet,
   PDFViewer,
-  Font,
+  PDFDownloadLink,
+  Image,
 } from '@react-pdf/renderer';
+
+// IMPORT YOUR LOGO
+import logo from './assets/logo1.jpg';
 
 const BORDER_COLOR = '#c4c4c4';
 const HEADER_BORDER = '#a0a0a0';
 const BLUE_BG = '#eef5fc';
 const SECTION_BLUE = '#1a4e8a';
-const HEADER_BLUE = '#2d338a';
 const DARK_BLUE = '#002b5e';
 const TEXT_COLOR = '#333';
-const GREY_BG = '#f0f0f0';
 
 const styles = StyleSheet.create({
   page: {
@@ -25,68 +27,87 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica',
     fontSize: 9,
   },
+
   paper: {
     backgroundColor: '#fff',
     padding: 24,
   },
 
-  // ── Header ──────────────────────────────────────────────────────────────────
+  // ───────────────── HEADER ─────────────────
   headerBox: {
     border: `1px solid ${HEADER_BORDER}`,
     flexDirection: 'row',
     backgroundColor: BLUE_BG,
     marginBottom: 12,
+    width: '100%',
   },
+
   headerLogo: {
-    flex: 1,
+    width: '22%',
     borderRight: `1px solid ${HEADER_BORDER}`,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8,
+    position: 'relative',
+    minHeight: 70,
   },
-  headerLogoText: {
-    color: HEADER_BLUE,
-    fontSize: 18,
-    fontFamily: 'Helvetica-Bold',
-    letterSpacing: 1,
+
+  headerLogoImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
   },
+
   headerTitle: {
-    flex: 2,
+    width: '48%',
     borderRight: `1px solid ${HEADER_BORDER}`,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
   },
+
   headerTitleText: {
     color: DARK_BLUE,
-    fontSize: 13,
+    fontSize: 14,
     fontFamily: 'Helvetica-Bold',
-    letterSpacing: 3,
+    letterSpacing: 1.5,
+    textAlign: 'center',
   },
+
   headerMeta: {
-    flex: 1,
+    width: '30%',
+    justifyContent: 'center',
   },
+
   headerMetaRow: {
     flexDirection: 'row',
     borderBottom: `1px solid ${HEADER_BORDER}`,
   },
+
   headerMetaRowLast: {
     flexDirection: 'row',
   },
+
   headerMetaLabel: {
     fontFamily: 'Helvetica-Bold',
     borderRight: `1px solid ${HEADER_BORDER}`,
-    padding: '3 4',
+    paddingVertical: 4,
+    paddingHorizontal: 5,
     color: TEXT_COLOR,
-    flex: 1,
-  },
-  headerMetaValue: {
-    padding: '3 4',
-    color: TEXT_COLOR,
-    flex: 1,
+    width: '45%',
+    fontSize: 8,
   },
 
-  // ── Section heading ──────────────────────────────────────────────────────────
+  headerMetaValue: {
+    paddingVertical: 4,
+    paddingHorizontal: 5,
+    color: TEXT_COLOR,
+    width: '55%',
+    fontSize: 8,
+  },
+
+  // ───────────────── SECTION HEADINGS ─────────────────
   sectionHeading: {
     color: SECTION_BLUE,
     fontFamily: 'Helvetica-Bold',
@@ -94,80 +115,78 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     textTransform: 'uppercase',
   },
+
   sectionWrap: {
     marginBottom: 12,
   },
 
-  // ── Table helpers ────────────────────────────────────────────────────────────
+  // ───────────────── TABLE ─────────────────
   table: {
     border: `1px solid ${BORDER_COLOR}`,
   },
+
   row: {
     flexDirection: 'row',
   },
+
   cell: {
     padding: '4 5',
     color: TEXT_COLOR,
     fontSize: 9,
     borderBottom: `1px solid ${BORDER_COLOR}`,
   },
+
   cellNoBorder: {
     padding: '4 5',
     color: TEXT_COLOR,
     fontSize: 9,
   },
+
   cellBold: {
     fontFamily: 'Helvetica-Bold',
   },
+
   cellBg: {
     backgroundColor: BLUE_BG,
   },
+
   cellRight: {
     borderRight: `1px solid ${BORDER_COLOR}`,
   },
 
-  // ── Section 1: General Details ───────────────────────────────────────────────
-  genW33: { flex: 1 },
+  genW33: {
+    flex: 1,
+  },
 
-  // ── Section B: Type of Services ─────────────────────────────────────────────
-  serviceLabel: { flex: 5, padding: '3 5' },
-  serviceCheck: { flex: 1, padding: '3 5' },
-
-  // ── Section C: Guidelines ────────────────────────────────────────────────────
-  guideLabel: { flex: 4 },
-  guideScore: { flex: 1, textAlign: 'center' },
-  guideHalf: { width: '50%' },
-
-  // ── Section D: Feedback ──────────────────────────────────────────────────────
-  feedbackTitle: { flex: 15 },
-  feedbackScore: { flex: 1, textAlign: 'center' },
-
-  // ── Participants / Suggestions ───────────────────────────────────────────────
+  // ───────────────── TEXT AREA ─────────────────
   participantWrap: {
     marginBottom: 16,
     paddingHorizontal: 4,
   },
+
   participantText: {
     color: TEXT_COLOR,
     marginBottom: 24,
     fontSize: 9,
   },
 
-  // ── Signature ────────────────────────────────────────────────────────────────
+  // ───────────────── SIGNATURE ─────────────────
   signatureWrap: {
     paddingHorizontal: 4,
     marginTop: 20,
   },
+
   signatureLine: {
     borderTop: '1px solid #000',
     paddingTop: 3,
   },
+
   signatureText: {
     color: TEXT_COLOR,
     fontSize: 9,
   },
 
-  // ── Confidential note ────────────────────────────────────────────────────────
+  // ───────────────── NOTE ─────────────────
   noteText: {
     textAlign: 'center',
     marginTop: 4,
@@ -176,8 +195,7 @@ const styles = StyleSheet.create({
   },
 });
 
-// ── Small reusable pieces ────────────────────────────────────────────────────
-
+// ───────────────── META ROW ─────────────────
 const MetaRow = ({ label, value, last }) => (
   <View style={last ? styles.headerMetaRowLast : styles.headerMetaRow}>
     <Text style={styles.headerMetaLabel}>{label}</Text>
@@ -185,8 +203,15 @@ const MetaRow = ({ label, value, last }) => (
   </View>
 );
 
-// Generic table cell builder
-const Td = ({ children, bold, bg, borderRight, borderBottom = true, style }) => {
+// ───────────────── TABLE CELL ─────────────────
+const Td = ({
+  children,
+  bold,
+  bg,
+  borderRight,
+  borderBottom = true,
+  style,
+}) => {
   const composed = [
     borderBottom ? styles.cell : styles.cellNoBorder,
     bold && styles.cellBold,
@@ -194,97 +219,193 @@ const Td = ({ children, bold, bg, borderRight, borderBottom = true, style }) => 
     borderRight && styles.cellRight,
     style,
   ].filter(Boolean);
-  return <View style={composed}><Text>{children}</Text></View>;
+
+  return (
+    <View style={composed}>
+      <Text>{children}</Text>
+    </View>
+  );
 };
 
-// ── Main PDF document ────────────────────────────────────────────────────────
-
+// ───────────────── PDF DOCUMENT ─────────────────
 const ServiceReportPDF = () => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.paper}>
 
-        {/* ── Header ── */}
+        {/* ───────────────── HEADER ───────────────── */}
         <View style={styles.headerBox}>
+
+          {/* LOGO */}
           <View style={styles.headerLogo}>
-            <Text style={styles.headerLogoText}>UGES</Text>
+            <Image src={logo} style={styles.headerLogoImage} />
           </View>
+
+          {/* TITLE */}
           <View style={styles.headerTitle}>
-            <Text style={styles.headerTitleText}>SERVICE REPORT</Text>
+            <Text style={styles.headerTitleText}>
+              FEEDBACK FORM
+            </Text>
           </View>
+
+          {/* META */}
           <View style={styles.headerMeta}>
             <MetaRow label="Doc. No.:" value="UGES-SE-F-04" />
             <MetaRow label="Rev. No.:" value="02" />
             <MetaRow label="Eff. Dt:" value="2025-04-01" />
             <MetaRow label="Page:" value="1 of 2" last />
           </View>
+
         </View>
 
-        {/* ── Section 1: General Details ── */}
+        {/* ───────────────── SECTION 1 ───────────────── */}
         <View style={styles.sectionWrap}>
-          <Text style={styles.sectionHeading}>1. General Details :</Text>
+          <Text style={styles.sectionHeading}>
+            1. General Details :
+          </Text>
+
           <View style={styles.table}>
-            {/* Header row */}
+
+            {/* ROW 1 */}
             <View style={styles.row}>
-              <Td bold bg borderRight borderBottom style={styles.genW33}>Name of Assignment</Td>
-              <Td bold bg borderRight borderBottom style={styles.genW33}>Date</Td>
-              <Td bold bg borderBottom style={styles.genW33}>Customer Employee</Td>
+              <Td bold bg borderRight style={styles.genW33}>
+                Name of Assignment
+              </Td>
+
+              <Td bold bg borderRight style={styles.genW33}>
+                Date
+              </Td>
+
+              <Td bold bg style={styles.genW33}>
+                Customer Employee
+              </Td>
             </View>
-            {/* Value row */}
+
+            {/* VALUES */}
             <View style={styles.row}>
-              <Td borderRight borderBottom style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
-              <Td borderRight borderBottom style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
-              <Td borderBottom style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
+              <Td borderRight style={[styles.genW33, { minHeight: 16 }]}>
+                {' '}
+              </Td>
+
+              <Td borderRight style={[styles.genW33, { minHeight: 16 }]}>
+                {' '}
+              </Td>
+
+              <Td style={[styles.genW33, { minHeight: 16 }]}>
+                {' '}
+              </Td>
             </View>
-            {/* Header row 2 */}
+
+            {/* ROW 2 */}
             <View style={styles.row}>
-              <Td bold bg borderRight borderBottom style={styles.genW33}>Site Name</Td>
-              <Td bold bg borderRight borderBottom style={styles.genW33}>UGES Employee</Td>
-              <Td bold bg borderBottom style={styles.genW33}>Location/Country</Td>
+              <Td bold bg borderRight style={styles.genW33}>
+                Site Name
+              </Td>
+
+              <Td bold bg borderRight style={styles.genW33}>
+                UGES Employee
+              </Td>
+
+              <Td bold bg style={styles.genW33}>
+                Location/Country
+              </Td>
             </View>
-            {/* Value row 2 */}
+
+            {/* VALUES */}
             <View style={styles.row}>
-              <Td borderRight borderBottom={false} style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
-              <Td borderRight borderBottom={false} style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
-              <Td borderBottom={false} style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
+              <Td
+                borderRight
+                borderBottom={false}
+                style={[styles.genW33, { minHeight: 16 }]}
+              >
+                {' '}
+              </Td>
+
+              <Td
+                borderRight
+                borderBottom={false}
+                style={[styles.genW33, { minHeight: 16 }]}
+              >
+                {' '}
+              </Td>
+
+              <Td
+                borderBottom={false}
+                style={[styles.genW33, { minHeight: 16 }]}
+              >
+                {' '}
+              </Td>
             </View>
+
           </View>
         </View>
 
-        {/* ── Section B: Type of Services ── */}
+        {/* ───────────────── SECTION B ───────────────── */}
         <View style={styles.sectionWrap}>
-          <Text style={styles.sectionHeading}>B. Type of Services: (Please ✓ whichever is applicable)</Text>
+          <Text style={styles.sectionHeading}>
+            B. Type of Services: (Please ✓ whichever is applicable)
+          </Text>
+
           <View style={styles.table}>
+
             {[
               ['Factory Inspection', 'Wind farm audits', 'Inspection & Testing'],
               ['Project Management Services', 'Training', 'Design Review'],
               ['Engineering Consulting', 'Conditional monitoring', 'Operations & Maintenance:'],
             ].map((rowItems, rowIdx) => (
               <View key={rowIdx} style={styles.row}>
+
                 {rowItems.map((label, colIdx) => (
                   <React.Fragment key={colIdx}>
-                    <Td bg borderRight borderBottom style={{ flex: 5 }}>{label}</Td>
+
+                    <Td
+                      bg
+                      borderRight
+                      style={{ flex: 5 }}
+                    >
+                      {label}
+                    </Td>
+
                     <Td
                       borderRight={colIdx < 2}
-                      borderBottom
                       style={{ flex: 1, minHeight: 16 }}
-                    >{' '}</Td>
+                    >
+                      {' '}
+                    </Td>
+
                   </React.Fragment>
                 ))}
+
               </View>
             ))}
-            {/* Other row */}
+
+            {/* OTHER */}
             <View style={styles.row}>
-              <Td bg borderRight borderBottom={false} style={{ flex: 5 }}>Other (Specify)</Td>
-              <View style={[styles.cellNoBorder, { flex: 7 }]}><Text>{' '}</Text></View>
+              <Td
+                bg
+                borderRight
+                borderBottom={false}
+                style={{ flex: 4.4 }}
+              >
+                Other (Specify)
+              </Td>
+
+              <View style={[styles.cellNoBorder, { flex: 13 }]}>
+                <Text>{' '}</Text>
+              </View>
             </View>
+
           </View>
         </View>
 
-        {/* ── Section C: Guidelines ── */}
+        {/* ───────────────── SECTION C ───────────────── */}
         <View style={styles.sectionWrap}>
-          <Text style={styles.sectionHeading}>C. Guidelines for Feedback Evaluation:</Text>
+          <Text style={styles.sectionHeading}>
+            C. Guidelines for Feedback Evaluation:
+          </Text>
+
           <View style={[styles.table, { width: '50%' }]}>
+
             {[
               ['Not up to the mark', '2'],
               ['Poor', '4'],
@@ -293,39 +414,64 @@ const ServiceReportPDF = () => (
               ['Exceeding Expectations', '10'],
             ].map(([label, score], idx) => (
               <View key={idx} style={styles.row}>
+
                 <Td
                   bg
                   borderRight
                   borderBottom={idx < 4}
                   style={{ flex: 4 }}
-                >{label}</Td>
+                >
+                  {label}
+                </Td>
+
                 <Td
                   borderBottom={idx < 4}
-                  style={{ flex: 1, textAlign: 'center' }}
-                >{score}</Td>
+                  style={{
+                    flex: 1,
+                    textAlign: 'center',
+                  }}
+                >
+                  {score}
+                </Td>
+
               </View>
             ))}
+
           </View>
         </View>
 
-        {/* ── Section D: Feedback Section ── */}
+        {/* ───────────────── SECTION D ───────────────── */}
         <View style={styles.sectionWrap}>
-          <Text style={styles.sectionHeading}>D. Feedback Section:</Text>
+          <Text style={styles.sectionHeading}>
+            D. Feedback Section:
+          </Text>
+
           <View style={styles.table}>
-            {/* Table header */}
+
+            {/* HEADER */}
             <View style={[styles.row, { backgroundColor: BLUE_BG }]}>
-              <Td bold borderRight borderBottom style={{ flex: 15 }}>Title/ Description:</Td>
+
+              <Td bold borderRight style={{ flex: 15 }}>
+                Title/ Description:
+              </Td>
+
               {['2', '4', '6', '8', '10'].map((score, idx) => (
                 <Td
                   key={score}
                   bold
                   borderRight={idx < 4}
-                  borderBottom
-                  style={{ flex: 1, textAlign: 'center' }}
-                >{score}</Td>
+                  style={{
+                    flex: 1,
+                    textAlign: 'center',
+                  }}
+                >
+                  {score}
+                </Td>
               ))}
+
             </View>
-            {/* Criteria rows */}
+
+            {/* ROWS */}
             {[
               'Knowledge and Command UGES:',
               'Time/ Schedule Compliance:',
@@ -335,43 +481,79 @@ const ServiceReportPDF = () => (
               'Reporting Structure:',
             ].map((criteria, idx) => (
               <View key={idx} style={styles.row}>
-                <Td borderRight borderBottom style={{ flex: 15 }}>{criteria}</Td>
+
+                <Td borderRight style={{ flex: 15 }}>
+                  {criteria}
+                </Td>
+
                 {[0, 1, 2, 3, 4].map((i) => (
                   <Td
                     key={i}
                     borderRight={i < 4}
-                    borderBottom
-                    style={{ flex: 1, minHeight: 14 }}
-                  >{' '}</Td>
+                    style={{
+                      flex: 1,
+                      minHeight: 14,
+                    }}
+                  >
+                    {' '}
+                  </Td>
                 ))}
+
               </View>
             ))}
-            {/* Average row */}
+
+            {/* AVERAGE */}
             <View style={styles.row}>
-              <Td borderRight borderBottom={false} style={{ flex: 15, textAlign: 'right', paddingRight: 6 }}>
+
+              <Td
+                borderRight
+                borderBottom={false}
+                style={{
+                  flex: 15,
+                  textAlign: 'right',
+                  paddingRight: 6,
+                }}
+              >
                 Average of overall Feedback
               </Td>
-              <View style={[styles.cellNoBorder, { flex: 5 }]}><Text>{' '}</Text></View>
+
+              <View style={[styles.cellNoBorder, { flex: 5 }]}>
+                <Text>{' '}</Text>
+              </View>
+
             </View>
+
           </View>
+
           <Text style={styles.noteText}>
-            (In case of confidential feedback: you may write to "enquiry@uges.co.in")
+            (In case of confidential feedback:
+            you may write to "enquiry@uges.co.in")
           </Text>
         </View>
 
-        {/* ── Participants & Suggestions ── */}
+        {/* ───────────────── PARTICIPANTS ───────────────── */}
         <View style={styles.participantWrap}>
-          <Text style={styles.participantText}>Name of Participants (Optional):</Text>
+
           <Text style={styles.participantText}>
-            Please Give below your Suggestions for Improvement (*Mandatory if assessment is below 6):
+            Name of Participants (Optional):
           </Text>
+
+          <Text style={styles.participantText}>
+            Please Give below your Suggestions for Improvement
+            (*Mandatory if assessment is below 6):
+          </Text>
+
         </View>
 
-        {/* ── Signature ── */}
+        {/* ───────────────── SIGNATURE ───────────────── */}
         <View style={styles.signatureWrap}>
+
           <View style={styles.signatureLine}>
-            <Text style={styles.signatureText}>Name/ Sign/Stamp/Date:</Text>
+            <Text style={styles.signatureText}>
+              Name/ Sign/Stamp/Date:
+            </Text>
           </View>
+
         </View>
 
       </View>
@@ -379,14 +561,410 @@ const ServiceReportPDF = () => (
   </Document>
 );
 
-// ── App wrapper: renders a PDFViewer in the browser ──────────────────────────
+// ───────────────── APP ─────────────────
 export default function App() {
   return (
-    <PDFViewer style={{ width: '100%', height: '100vh', border: 'none' }}>
+    <PDFViewer
+      style={{
+        width: '100%',
+        height: '100vh',
+        border: 'none',
+      }}
+    >
       <ServiceReportPDF />
     </PDFViewer>
   );
 }
+
+// import React from 'react';
+// import {
+//   Document,
+//   Page,
+//   View,
+//   Text,
+//   StyleSheet,
+//   PDFViewer,
+//   Font,
+// } from '@react-pdf/renderer';
+
+// const BORDER_COLOR = '#c4c4c4';
+// const HEADER_BORDER = '#a0a0a0';
+// const BLUE_BG = '#eef5fc';
+// const SECTION_BLUE = '#1a4e8a';
+// const HEADER_BLUE = '#2d338a';
+// const DARK_BLUE = '#002b5e';
+// const TEXT_COLOR = '#333';
+// const GREY_BG = '#f0f0f0';
+
+// const styles = StyleSheet.create({
+//   page: {
+//     backgroundColor: '#e0e0e0',
+//     padding: 20,
+//     fontFamily: 'Helvetica',
+//     fontSize: 9,
+//   },
+//   paper: {
+//     backgroundColor: '#fff',
+//     padding: 24,
+//   },
+
+//   // ── Header ──────────────────────────────────────────────────────────────────
+//   headerBox: {
+//     border: `1px solid ${HEADER_BORDER}`,
+//     flexDirection: 'row',
+//     backgroundColor: BLUE_BG,
+//     marginBottom: 12,
+//   },
+//   headerLogo: {
+//     flex: 1,
+//     borderRight: `1px solid ${HEADER_BORDER}`,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     padding: 8,
+//   },
+//   headerLogoText: {
+//     color: HEADER_BLUE,
+//     fontSize: 18,
+//     fontFamily: 'Helvetica-Bold',
+//     letterSpacing: 1,
+//   },
+//   headerTitle: {
+//     flex: 2,
+//     borderRight: `1px solid ${HEADER_BORDER}`,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     padding: 8,
+//   },
+//   headerTitleText: {
+//     color: DARK_BLUE,
+//     fontSize: 13,
+//     fontFamily: 'Helvetica-Bold',
+//     letterSpacing: 3,
+//   },
+//   headerMeta: {
+//     flex: 1,
+//   },
+//   headerMetaRow: {
+//     flexDirection: 'row',
+//     borderBottom: `1px solid ${HEADER_BORDER}`,
+//   },
+//   headerMetaRowLast: {
+//     flexDirection: 'row',
+//   },
+//   headerMetaLabel: {
+//     fontFamily: 'Helvetica-Bold',
+//     borderRight: `1px solid ${HEADER_BORDER}`,
+//     padding: '3 4',
+//     color: TEXT_COLOR,
+//     flex: 1,
+//   },
+//   headerMetaValue: {
+//     padding: '3 4',
+//     color: TEXT_COLOR,
+//     flex: 1,
+//   },
+
+//   // ── Section heading ──────────────────────────────────────────────────────────
+//   sectionHeading: {
+//     color: SECTION_BLUE,
+//     fontFamily: 'Helvetica-Bold',
+//     fontSize: 8,
+//     marginBottom: 4,
+//     textTransform: 'uppercase',
+//   },
+//   sectionWrap: {
+//     marginBottom: 12,
+//   },
+
+//   // ── Table helpers ────────────────────────────────────────────────────────────
+//   table: {
+//     border: `1px solid ${BORDER_COLOR}`,
+//   },
+//   row: {
+//     flexDirection: 'row',
+//   },
+//   cell: {
+//     padding: '4 5',
+//     color: TEXT_COLOR,
+//     fontSize: 9,
+//     borderBottom: `1px solid ${BORDER_COLOR}`,
+//   },
+//   cellNoBorder: {
+//     padding: '4 5',
+//     color: TEXT_COLOR,
+//     fontSize: 9,
+//   },
+//   cellBold: {
+//     fontFamily: 'Helvetica-Bold',
+//   },
+//   cellBg: {
+//     backgroundColor: BLUE_BG,
+//   },
+//   cellRight: {
+//     borderRight: `1px solid ${BORDER_COLOR}`,
+//   },
+
+//   // ── Section 1: General Details ───────────────────────────────────────────────
+//   genW33: { flex: 1 },
+
+//   // ── Section B: Type of Services ─────────────────────────────────────────────
+//   serviceLabel: { flex: 5, padding: '3 5' },
+//   serviceCheck: { flex: 1, padding: '3 5' },
+
+//   // ── Section C: Guidelines ────────────────────────────────────────────────────
+//   guideLabel: { flex: 4 },
+//   guideScore: { flex: 1, textAlign: 'center' },
+//   guideHalf: { width: '50%' },
+
+//   // ── Section D: Feedback ──────────────────────────────────────────────────────
+//   feedbackTitle: { flex: 15 },
+//   feedbackScore: { flex: 1, textAlign: 'center' },
+
+//   // ── Participants / Suggestions ───────────────────────────────────────────────
+//   participantWrap: {
+//     marginBottom: 16,
+//     paddingHorizontal: 4,
+//   },
+//   participantText: {
+//     color: TEXT_COLOR,
+//     marginBottom: 24,
+//     fontSize: 9,
+//   },
+
+//   // ── Signature ────────────────────────────────────────────────────────────────
+//   signatureWrap: {
+//     paddingHorizontal: 4,
+//     marginTop: 20,
+//   },
+//   signatureLine: {
+//     borderTop: '1px solid #000',
+//     paddingTop: 3,
+//   },
+//   signatureText: {
+//     color: TEXT_COLOR,
+//     fontSize: 9,
+//   },
+
+//   // ── Confidential note ────────────────────────────────────────────────────────
+//   noteText: {
+//     textAlign: 'center',
+//     marginTop: 4,
+//     color: TEXT_COLOR,
+//     fontSize: 8,
+//   },
+// });
+
+// // ── Small reusable pieces ────────────────────────────────────────────────────
+
+// const MetaRow = ({ label, value, last }) => (
+//   <View style={last ? styles.headerMetaRowLast : styles.headerMetaRow}>
+//     <Text style={styles.headerMetaLabel}>{label}</Text>
+//     <Text style={styles.headerMetaValue}>{value}</Text>
+//   </View>
+// );
+
+// // Generic table cell builder
+// const Td = ({ children, bold, bg, borderRight, borderBottom = true, style }) => {
+//   const composed = [
+//     borderBottom ? styles.cell : styles.cellNoBorder,
+//     bold && styles.cellBold,
+//     bg && styles.cellBg,
+//     borderRight && styles.cellRight,
+//     style,
+//   ].filter(Boolean);
+//   return <View style={composed}><Text>{children}</Text></View>;
+// };
+
+// // ── Main PDF document ────────────────────────────────────────────────────────
+
+// const ServiceReportPDF = () => (
+//   <Document>
+//     <Page size="A4" style={styles.page}>
+//       <View style={styles.paper}>
+
+//         {/* ── Header ── */}
+//         <View style={styles.headerBox}>
+//           <View style={styles.headerLogo}>
+//             <Text style={styles.headerLogoText}>UGES</Text>
+//           </View>
+//           <View style={styles.headerTitle}>
+//             <Text style={styles.headerTitleText}>Feedback Form</Text>
+//           </View>
+//           <View style={styles.headerMeta}>
+//             <MetaRow label="Doc. No.:" value="UGES-SE-F-04" />
+//             <MetaRow label="Rev. No.:" value="02" />
+//             <MetaRow label="Eff. Dt:" value="2025-04-01" />
+//             <MetaRow label="Page:" value="1 of 2" last />
+//           </View>
+//         </View>
+
+//         {/* ── Section 1: General Details ── */}
+//         <View style={styles.sectionWrap}>
+//           <Text style={styles.sectionHeading}>1. General Details :</Text>
+//           <View style={styles.table}>
+//             {/* Header row */}
+//             <View style={styles.row}>
+//               <Td bold bg borderRight borderBottom style={styles.genW33}>Name of Assignment</Td>
+//               <Td bold bg borderRight borderBottom style={styles.genW33}>Date</Td>
+//               <Td bold bg borderBottom style={styles.genW33}>Customer Employee</Td>
+//             </View>
+//             {/* Value row */}
+//             <View style={styles.row}>
+//               <Td borderRight borderBottom style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
+//               <Td borderRight borderBottom style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
+//               <Td borderBottom style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
+//             </View>
+//             {/* Header row 2 */}
+//             <View style={styles.row}>
+//               <Td bold bg borderRight borderBottom style={styles.genW33}>Site Name</Td>
+//               <Td bold bg borderRight borderBottom style={styles.genW33}>UGES Employee</Td>
+//               <Td bold bg borderBottom style={styles.genW33}>Location/Country</Td>
+//             </View>
+//             {/* Value row 2 */}
+//             <View style={styles.row}>
+//               <Td borderRight borderBottom={false} style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
+//               <Td borderRight borderBottom={false} style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
+//               <Td borderBottom={false} style={[styles.genW33, { minHeight: 16 }]}>{' '}</Td>
+//             </View>
+//           </View>
+//         </View>
+
+//         {/* ── Section B: Type of Services ── */}
+//         <View style={styles.sectionWrap}>
+//           <Text style={styles.sectionHeading}>B. Type of Services: (Please ✓ whichever is applicable)</Text>
+//           <View style={styles.table}>
+//             {[
+//               ['Factory Inspection', 'Wind farm audits', 'Inspection & Testing'],
+//               ['Project Management Services', 'Training', 'Design Review'],
+//               ['Engineering Consulting', 'Conditional monitoring', 'Operations & Maintenance:'],
+//             ].map((rowItems, rowIdx) => (
+//               <View key={rowIdx} style={styles.row}>
+//                 {rowItems.map((label, colIdx) => (
+//                   <React.Fragment key={colIdx}>
+//                     <Td bg borderRight borderBottom style={{ flex: 5 }}>{label}</Td>
+//                     <Td
+//                       borderRight={colIdx < 2}
+//                       borderBottom
+//                       style={{ flex: 1, minHeight: 16 }}
+//                     >{' '}</Td>
+//                   </React.Fragment>
+//                 ))}
+//               </View>
+//             ))}
+//             {/* Other row */}
+//             <View style={styles.row}>
+//               <Td bg borderRight borderBottom={false} style={{ flex: 5 }}>Other (Specify)</Td>
+//               <View style={[styles.cellNoBorder, { flex: 7 }]}><Text>{' '}</Text></View>
+//             </View>
+//           </View>
+//         </View>
+
+//         {/* ── Section C: Guidelines ── */}
+//         <View style={styles.sectionWrap}>
+//           <Text style={styles.sectionHeading}>C. Guidelines for Feedback Evaluation:</Text>
+//           <View style={[styles.table, { width: '50%' }]}>
+//             {[
+//               ['Not up to the mark', '2'],
+//               ['Poor', '4'],
+//               ['Acceptable', '6'],
+//               ['Meeting Expectations', '8'],
+//               ['Exceeding Expectations', '10'],
+//             ].map(([label, score], idx) => (
+//               <View key={idx} style={styles.row}>
+//                 <Td
+//                   bg
+//                   borderRight
+//                   borderBottom={idx < 4}
+//                   style={{ flex: 4 }}
+//                 >{label}</Td>
+//                 <Td
+//                   borderBottom={idx < 4}
+//                   style={{ flex: 1, textAlign: 'center' }}
+//                 >{score}</Td>
+//               </View>
+//             ))}
+//           </View>
+//         </View>
+
+//         {/* ── Section D: Feedback Section ── */}
+//         <View style={styles.sectionWrap}>
+//           <Text style={styles.sectionHeading}>D. Feedback Section:</Text>
+//           <View style={styles.table}>
+//             {/* Table header */}
+//             <View style={[styles.row, { backgroundColor: BLUE_BG }]}>
+//               <Td bold borderRight borderBottom style={{ flex: 15 }}>Title/ Description:</Td>
+//               {['2', '4', '6', '8', '10'].map((score, idx) => (
+//                 <Td
+//                   key={score}
+//                   bold
+//                   borderRight={idx < 4}
+//                   borderBottom
+//                   style={{ flex: 1, textAlign: 'center' }}
+//                 >{score}</Td>
+//               ))}
+//             </View>
+//             {/* Criteria rows */}
+//             {[
+//               'Knowledge and Command UGES:',
+//               'Time/ Schedule Compliance:',
+//               'Quality of Service:',
+//               'Clarification of queries:',
+//               'EHS Practices and Compliances:',
+//               'Reporting Structure:',
+//             ].map((criteria, idx) => (
+//               <View key={idx} style={styles.row}>
+//                 <Td borderRight borderBottom style={{ flex: 15 }}>{criteria}</Td>
+//                 {[0, 1, 2, 3, 4].map((i) => (
+//                   <Td
+//                     key={i}
+//                     borderRight={i < 4}
+//                     borderBottom
+//                     style={{ flex: 1, minHeight: 14 }}
+//                   >{' '}</Td>
+//                 ))}
+//               </View>
+//             ))}
+//             {/* Average row */}
+//             <View style={styles.row}>
+//               <Td borderRight borderBottom={false} style={{ flex: 15, textAlign: 'right', paddingRight: 6 }}>
+//                 Average of overall Feedback
+//               </Td>
+//               <View style={[styles.cellNoBorder, { flex: 5 }]}><Text>{' '}</Text></View>
+//             </View>
+//           </View>
+//           <Text style={styles.noteText}>
+//             (In case of confidential feedback: you may write to "enquiry@uges.co.in")
+//           </Text>
+//         </View>
+
+//         {/* ── Participants & Suggestions ── */}
+//         <View style={styles.participantWrap}>
+//           <Text style={styles.participantText}>Name of Participants (Optional):</Text>
+//           <Text style={styles.participantText}>
+//             Please Give below your Suggestions for Improvement (*Mandatory if assessment is below 6):
+//           </Text>
+//         </View>
+
+//         {/* ── Signature ── */}
+//         <View style={styles.signatureWrap}>
+//           <View style={styles.signatureLine}>
+//             <Text style={styles.signatureText}>Name/ Sign/Stamp/Date:</Text>
+//           </View>
+//         </View>
+
+//       </View>
+//     </Page>
+//   </Document>
+// );
+
+// // ── App wrapper: renders a PDFViewer in the browser ──────────────────────────
+// export default function App() {
+//   return (
+//     <PDFViewer style={{ width: '100%', height: '100vh', border: 'none' }}>
+//       <ServiceReportPDF />
+//     </PDFViewer>
+//   );
+// }
 
 
 // import React from 'react';
