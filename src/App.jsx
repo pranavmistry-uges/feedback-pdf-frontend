@@ -11,7 +11,7 @@ import {
 } from '@react-pdf/renderer';
 
 // IMPORT YOUR LOGO
-import logo from './assets/logo1.jpg';
+import logo from './assets/logo.png';
 
 const BORDER_COLOR = '#c4c4c4';
 const HEADER_BORDER = '#a0a0a0';
