@@ -380,6 +380,14 @@ export const UssActivityTable = () => {
           </Table>
         </TableContainer>
       </Box>
+      <Button
+        variant="contained"
+        color="primary"
+        size="large"
+        sx={{ minWidth: '200px', fontWeight: 'bold', px: 4, py: 1.5, marginLeft: '40%' }}
+      >
+        Submit
+      </Button>
     </ThemeProvider>
   );
 };

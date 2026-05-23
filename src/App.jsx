@@ -80,33 +80,22 @@ function App() {
               selected={tabValue === 0}
               onClick={() => handleMenuClick(0)}
             >
-              <ListItemText primary="Service Report PDF" />
+              <ListItemText primary="USS Activity Table" />
             </ListItemButton>
 
             <ListItemButton
               selected={tabValue === 1}
               onClick={() => handleMenuClick(1)}
             >
-              <ListItemText primary="USS Activity Table" />
+              <ListItemText primary="Service Report PDF" />
             </ListItemButton>
+
 
           </List>
         </Box>
       </Drawer>
 
       {tabValue === 0 && (
-        <PDFViewer
-          style={{
-            width: '100%',
-            height: 'calc(100vh - 112px)',
-            border: 'none',
-          }}
-        >
-          <ServiceReportPDF />
-        </PDFViewer>
-      )}
-
-      {tabValue === 1 && (
         <Box
           sx={{
             p: 2,
@@ -118,6 +107,17 @@ function App() {
         </Box>
       )}
 
+      {tabValue === 1 && (
+        <PDFViewer
+          style={{
+            width: '100%',
+            height: 'calc(100vh - 112px)',
+            border: 'none',
+          }}
+        >
+          <ServiceReportPDF />
+        </PDFViewer>
+      )}
     </Box>
   );
 }
